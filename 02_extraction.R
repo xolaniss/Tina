@@ -44,6 +44,7 @@ library(car)
 library(furrr)
 library(parallel)
 library(tictoc)
+library(qs2)
 
 # Import ---------------------------------------------------------------
 temp_rast <- terra::rast(here("Output", "cropped_masked_temp.tif"))
@@ -79,14 +80,19 @@ temp_names_tbl <-
   tidytable::select(id, date, name, region, coverage_fraction, t2m) |> 
   as_tibble()
 
+# Exporting to CSV ----
+qd_save(temp_names_tbl, here("Output", "temp_names_tbl.qs2"))
+
+## Create a new script to continue the analysis from here
+
 # weighting and averaging ----
-temp_weighted_tbl <- 
-  temp_names_tbl |> 
-  drop_na() |>
-  mutate(weighted_t2m = coverage_fraction*t2m) |> 
-  group_by(date, name) |> 
-  summarise(mean_weighted_t2m = mean(weighted_t2m)) |> 
-  ungroup()
+# temp_weighted_tbl <- 
+  # temp_names_tbl |> 
+  # drop_na() |>
+  # mutate(weighted_t2m = coverage_fraction*t2m) |> 
+  # group_by(date, name) |> 
+  # summarise(mean_weighted_t2m = mean(weighted_t2m)) |> 
+  # ungroup()
 
 
 
