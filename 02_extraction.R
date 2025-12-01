@@ -83,6 +83,10 @@ temp_names_tbl <-
 # Exporting to CSV ----
 qd_save(temp_names_tbl, here("Output", "temp_names_tbl.qs2"))
 
+# read in
+temp_names_tbl <- qd_read(here("Output", "temp_names_tbl.qs2"))
+
+
 ## Create a new script to continue the analysis from here
 
 # weighting and averaging ----
